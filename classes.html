@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CrossFit Classes - Tamalpais CrossFit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-2: #1a1a1a;
+      --dark-3: #222222;
+      --red: #c0392b;
+      --red-light: #e74c3c;
+      --red-dark: #922b21;
+      --white: #ffffff;
+      --off-white: #f5f5f5;
+      --gray: #888888;
+      --gray-light: #cccccc;
+      --gray-dark: #444444;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 40px; height: 40px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 900; color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 800; color: var(--white);
+      letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;
+    }
+    .nav-logo-sub {
+      font-size: 0.6rem; font-weight: 600; color: var(--red);
+      letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.6);
+      text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta {
+      background: var(--red); color: var(--white) !important;
+      padding: 10px 22px; border-radius: var(--radius);
+      font-weight: 700 !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-light) !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative; height: 52vh; min-height: 420px;
+      background: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1800&q=80') center 40% / cover no-repeat;
+      display: flex; align-items: flex-end;
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.6) 50%, rgba(10,10,10,0.3) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      padding: 0 64px 64px; width: 100%;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 16px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--white); }
+    .breadcrumb span { color: rgba(255,255,255,0.2); }
+    .page-hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4.5rem; font-weight: 900; line-height: 0.9;
+      text-transform: uppercase; color: var(--white);
+    }
+    .page-hero h1 span { color: var(--red); }
+    .page-hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.65);
+      margin-top: 16px; max-width: 540px; line-height: 1.6;
+    }
+
+    /* ── SHARED ── */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .section-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem; font-weight: 900; text-transform: uppercase;
+      line-height: 1; color: var(--white);
+    }
+    .section-title span { color: var(--red); }
+    .divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0; }
+
+    /* ── HOW CLASSES WORK ── */
+    .how-section {
+      padding: 88px 48px; background: var(--dark);
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-intro {
+      max-width: 660px; margin-bottom: 64px;
+    }
+    .how-intro p {
+      font-size: 1.08rem; color: rgba(255,255,255,0.65); line-height: 1.75; margin-top: 20px;
+    }
+    .how-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px;
+    }
+    .step-card {
+      background: var(--dark-2); padding: 40px 32px; position: relative;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .step-card:first-child { border-radius: var(--radius) 0 0 var(--radius); }
+    .step-card:last-child { border-radius: 0 var(--radius) var(--radius) 0; }
+    .step-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4.5rem; font-weight: 900; color: rgba(192,57,43,0.15);
+      line-height: 1; position: absolute; top: 24px; right: 28px;
+    }
+    .step-icon {
+      width: 48px; height: 48px; background: var(--red);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+    }
+    .step-icon svg { width: 24px; height: 24px; fill: var(--white); }
+    .step-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .step-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.7rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); margin-bottom: 14px; line-height: 1;
+    }
+    .step-desc {
+      font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+    }
+    .step-duration {
+      margin-top: 20px; display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.04);
+      padding: 6px 12px; border-radius: 4px;
+    }
+
+    /* ── WHO IT'S FOR ── */
+    .who-section {
+      padding: 88px 48px; background: var(--black);
+    }
+    .who-inner { max-width: 1100px; margin: 0 auto; }
+    .who-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 52px;
+    }
+    .who-card {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 32px 28px;
+      border: 1px solid rgba(255,255,255,0.06);
+      border-left: 3px solid var(--red);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .who-card:hover { transform: translateY(-3px); border-left-color: var(--red-light); }
+    .who-icon { font-size: 1.8rem; margin-bottom: 16px; }
+    .who-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.35rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .who-desc { font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7; }
+
+    /* ── PROGRAMMING PILLARS ── */
+    .pillars-section {
+      padding: 88px 48px; background: var(--dark);
+    }
+    .pillars-inner { max-width: 1100px; margin: 0 auto; }
+    .pillars-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-top: 52px; align-items: start;
+    }
+    .pillars-text p {
+      font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.8; margin-bottom: 24px;
+    }
+    .pillars-highlight {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 28px 32px; border-left: 4px solid var(--red);
+      margin-top: 8px;
+    }
+    .pillars-highlight p {
+      font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.7; margin: 0;
+      font-style: italic;
+    }
+    .domains-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+    }
+    .domain-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--dark-3); border-radius: 6px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .domain-dot {
+      width: 8px; height: 8px; background: var(--red);
+      border-radius: 50%; flex-shrink: 0;
+    }
+    .domain-name {
+      font-size: 0.82rem; font-weight: 600; color: rgba(255,255,255,0.75);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── WHAT YOU'LL EXPERIENCE ── */
+    .experience-section {
+      padding: 88px 48px;
+      background: url('https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=1800&q=80') center / cover no-repeat fixed;
+      position: relative;
+    }
+    .experience-overlay {
+      position: absolute; inset: 0;
+      background: rgba(10,10,10,0.88);
+    }
+    .experience-inner {
+      max-width: 1100px; margin: 0 auto; position: relative; z-index: 2;
+    }
+    .experience-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 52px;
+    }
+    .exp-card {
+      text-align: center; padding: 36px 20px;
+      background: rgba(255,255,255,0.04);
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .exp-card:hover { background: rgba(192,57,43,0.12); border-color: rgba(192,57,43,0.4); }
+    .exp-icon { font-size: 2rem; margin-bottom: 14px; }
+    .exp-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); margin-bottom: 10px; line-height: 1.1;
+    }
+    .exp-desc { font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+
+    /* ── PRICING ── */
+    .pricing-section {
+      padding: 88px 48px; background: var(--black);
+    }
+    .pricing-inner { max-width: 1100px; margin: 0 auto; }
+    .pricing-intro { max-width: 560px; margin-bottom: 56px; }
+    .pricing-intro p { font-size: 1rem; color: rgba(255,255,255,0.55); line-height: 1.75; margin-top: 16px; }
+    .pricing-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .pricing-card {
+      background: var(--dark-2); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden; position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); }
+    .pricing-card.featured {
+      border-color: var(--red);
+      box-shadow: 0 0 40px rgba(192,57,43,0.18);
+    }
+    .pricing-badge {
+      background: var(--red); color: var(--white);
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 8px 20px;
+      text-align: center;
+    }
+    .pricing-body { padding: 40px 36px; }
+    .pricing-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 8px;
+    }
+    .pricing-tagline { font-size: 0.82rem; color: rgba(255,255,255,0.45); line-height: 1.5; margin-bottom: 32px; }
+    .pricing-amount {
+      display: flex; align-items: flex-start; gap: 4px; margin-bottom: 32px;
+    }
+    .pricing-dollar { font-size: 1.4rem; font-weight: 700; color: var(--red); padding-top: 8px; }
+    .pricing-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4rem; font-weight: 900; color: var(--white); line-height: 1;
+    }
+    .pricing-per { font-size: 0.8rem; color: var(--gray); padding-top: 20px; align-self: flex-end; }
+    .pricing-includes {
+      list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px;
+    }
+    .pricing-includes li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.87rem; color: rgba(255,255,255,0.65); line-height: 1.45;
+    }
+    .pricing-includes li::before {
+      content: ''; display: block; width: 6px; height: 6px;
+      background: var(--red); border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+    }
+    .pricing-cta {
+      display: block; text-align: center; text-decoration: none;
+      padding: 14px; border-radius: var(--radius);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .pricing-cta-red { background: var(--red); color: var(--white); }
+    .pricing-cta-red:hover { background: var(--red-light); }
+    .pricing-cta-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .pricing-cta-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+    .pricing-note {
+      margin-top: 40px; text-align: center;
+      font-size: 0.85rem; color: rgba(255,255,255,0.35);
+    }
+    .pricing-note a { color: var(--red); text-decoration: none; }
+    .pricing-note a:hover { text-decoration: underline; }
+
+    /* ── SCHEDULE CTA ── */
+    .schedule-cta {
+      padding: 80px 48px; background: var(--red);
+      text-align: center;
+    }
+    .schedule-cta h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .schedule-cta p {
+      font-size: 1rem; color: rgba(255,255,255,0.8); margin-bottom: 36px;
+    }
+    .schedule-cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-block; background: var(--white); color: var(--red);
+      padding: 14px 36px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-white:hover { background: var(--off-white); transform: translateY(-2px); }
+    .btn-ghost-white {
+      display: inline-block; background: transparent; color: var(--white);
+      padding: 14px 36px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.5);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); padding: 56px 48px 32px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand p {
+      font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 16px;
+    }
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); letter-spacing: 0.08em; margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--red); }
+    .footer-col p { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-hero-content { padding: 0 24px 48px; }
+      .page-hero h1 { font-size: 3rem; }
+      .how-section, .who-section, .pillars-section,
+      .experience-section, .pricing-section { padding: 64px 24px; }
+      .how-steps { grid-template-columns: 1fr 1fr; }
+      .step-card:first-child { border-radius: var(--radius) 0 0 0; }
+      .step-card:last-child { border-radius: 0 0 var(--radius) 0; }
+      .who-grid { grid-template-columns: 1fr 1fr; }
+      .pillars-layout { grid-template-columns: 1fr; gap: 40px; }
+      .experience-grid { grid-template-columns: 1fr 1fr; }
+      .pricing-cards { grid-template-columns: 1fr; max-width: 440px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .schedule-cta { padding: 56px 24px; }
+      .schedule-cta h2 { font-size: 2.2rem; }
+    }
+    @media (max-width: 600px) {
+      .how-steps { grid-template-columns: 1fr; }
+      .who-grid { grid-template-columns: 1fr; }
+      .experience-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">TCF</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Tamalpais</span>
+        <span class="nav-logo-sub">CrossFit · Est. 2010</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="classes.html" class="active">Classes</a></li>
+      <li><a href="24hr.html">24 Hour Access</a></li>
+      <li><a href="index.html#coaches">Coaches</a></li>
+      <li><a href="index.html#wod">WOD</a></li>
+      <li><a href="index.html#intro" class="nav-cta">Free Intro</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="classes.html">Classes</a>
+    <a href="24hr.html">24 Hour Access</a>
+    <a href="index.html#coaches">Coaches</a>
+    <a href="index.html#intro">Free Intro</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        CrossFit Classes
+      </div>
+      <h1>CrossFit <span>Classes</span></h1>
+      <p class="page-hero-sub">Coach-led group training. Every level, every day. Come as you are - leave stronger than you arrived.</p>
+    </div>
+  </div>
+
+  <!-- HOW CLASSES WORK -->
+  <section class="how-section">
+    <div class="how-inner">
+      <div class="how-intro">
+        <div class="section-tag">The Structure</div>
+        <h2 class="section-title">HOW A CLASS <span>WORKS</span></h2>
+        <p>Every TCF class runs 60 minutes and follows the same tested structure. Whether it's your first day or your thousandth, you'll always know what to expect - and always be pushed beyond what you thought you could do.</p>
+      </div>
+      <div class="how-steps">
+        <!-- Step 1 -->
+        <div class="step-card">
+          <div class="step-number">01</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zM9.8 8.9L7 23h2.1l1.8-8 2.1 2v6h2v-7.5l-2.1-2 .6-3C14.8 12 16.8 13 19 13v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1L6 8.3V13h2V9.6l1.8-.7"/></svg>
+          </div>
+          <div class="step-label">Step 01</div>
+          <div class="step-name">Warm-Up</div>
+          <div class="step-desc">Dynamic movement prep, mobility work, and nervous system activation. Your coach walks you through everything - we protect your body first.</div>
+          <div class="step-duration">⏱ 10 minutes</div>
+        </div>
+        <!-- Step 2 -->
+        <div class="step-card">
+          <div class="step-number">02</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M20.57 14.86L22 13.43 20.57 12 17 15.57 8.43 7 12 3.43 10.57 2 9.14 3.43 7.71 2 5.57 4.14 4.14 2.71 2.71 4.14l1.43 1.43L2 7.71l1.43 1.43L2 10.57 3.43 12 7 8.43 15.57 17 12 20.57 13.43 22l1.43-1.43L16.29 22l2.14-2.14 1.43 1.43 1.43-1.43-1.43-1.43L22 16.29l-1.43-1.43z"/></svg>
+          </div>
+          <div class="step-label">Step 02</div>
+          <div class="step-name">Skill &amp; Strength</div>
+          <div class="step-desc">Focused technique work or a strength piece. Olympic lifting, gymnastics, barbell cycling - our certified coaches ensure perfect form before you load weight.</div>
+          <div class="step-duration">⏱ 15-20 minutes</div>
+        </div>
+        <!-- Step 3 -->
+        <div class="step-card">
+          <div class="step-number">03</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M13 2.05V4.08c3.39.49 6 3.39 6 6.92 0 2.74-1.52 5.15-3.78 6.38L17 19c3.13-1.65 5-4.78 5-8c0-4.76-3.62-8.73-8.28-9.9zM11 2.06C6.61 2.92 3.5 6.25 3.5 11c0 3.22 1.87 6.35 5 8l1.5-2.6C7.78 15.19 6 13.15 6 11c0-3.53 2.61-6.43 6-6.92V2.06h-1zM12 9l-1 5h2l-1-5z"/></svg>
+          </div>
+          <div class="step-label">Step 03</div>
+          <div class="step-name">The WOD</div>
+          <div class="step-desc">The Workout of the Day. Timed, scored, and endlessly scalable. Your coach modifies every movement so you're always working at the right intensity for your level.</div>
+          <div class="step-duration">⏱ 10-20 minutes</div>
+        </div>
+        <!-- Step 4 -->
+        <div class="step-card">
+          <div class="step-number">04</div>
+          <div class="step-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/></svg>
+          </div>
+          <div class="step-label">Step 04</div>
+          <div class="step-name">Cool-Down</div>
+          <div class="step-desc">Structured recovery - stretching, mobility, and breathing. We score the WOD, talk through technique, and celebrate what you just accomplished together.</div>
+          <div class="step-duration">⏱ 10 minutes</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- WHO IT'S FOR -->
+  <section class="who-section">
+    <div class="who-inner">
+      <div class="section-tag">Everyone Belongs</div>
+      <h2 class="section-title">WHO IT'S <span>FOR</span></h2>
+      <div class="who-grid">
+        <div class="who-card">
+          <div class="who-icon">🌱</div>
+          <div class="who-title">Complete Beginners</div>
+          <div class="who-desc">Never picked up a barbell? Perfect. Every coach at TCF started exactly where you are. We'll teach you every movement from scratch and scale workouts to your day-one level.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🏋️</div>
+          <div class="who-title">Former Athletes</div>
+          <div class="who-desc">Played sports in school but haven't trained seriously in years? CrossFit reconnects you with that competitive drive - and your body will remember more than you think.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🎯</div>
+          <div class="who-title">CrossFit Veterans</div>
+          <div class="who-desc">Experienced athletes get complex programming, quality coaching on advanced skills, and a community that pushes you to compete at your highest level.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">⏰</div>
+          <div class="who-title">Busy Professionals</div>
+          <div class="who-desc">60 minutes, max output, done. Multiple class times from early morning to evening mean you'll always find a slot that fits your schedule - no excuses.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">🏃</div>
+          <div class="who-title">Endurance Athletes</div>
+          <div class="who-desc">Runners, cyclists, and triathletes use TCF to build the functional strength that improves performance and prevents injury. Cross-training that actually crosses over.</div>
+        </div>
+        <div class="who-card">
+          <div class="who-icon">✨</div>
+          <div class="who-title">Marin Locals</div>
+          <div class="who-desc">Your neighbors are here. We've built one of the tightest fitness communities in the county. Come for the workout, stay for the people you'll meet.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROGRAMMING PILLARS -->
+  <section class="pillars-section">
+    <div class="pillars-inner">
+      <div class="section-tag">The Science</div>
+      <h2 class="section-title">10 FITNESS <span>DOMAINS</span></h2>
+      <div class="pillars-layout">
+        <div class="pillars-text">
+          <p>CrossFit's programming is built around developing competency across ten recognized physical skills. This isn't random - it's the most comprehensive approach to general physical preparedness ever developed.</p>
+          <p>At TCF, our programming intentionally cycles through all ten domains so you never have a glaring weakness. The result is fitness that carries over into real life, sport, and whatever challenge comes next.</p>
+          <div class="pillars-highlight">
+            <p>"Our goal is well-rounded, functional fitness. Not just looking strong - being strong, mobile, and ready for anything."</p>
+          </div>
+        </div>
+        <div class="domains-grid">
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Cardiovascular Endurance</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Stamina</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Strength</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Flexibility</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Power</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Speed</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Coordination</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Agility</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Balance</div></div>
+          <div class="domain-item"><div class="domain-dot"></div><div class="domain-name">Accuracy</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU'LL EXPERIENCE -->
+  <section class="experience-section">
+    <div class="experience-overlay"></div>
+    <div class="experience-inner">
+      <div class="section-tag">Inside Every Class</div>
+      <h2 class="section-title">WHAT YOU'LL <span>EXPERIENCE</span></h2>
+      <div class="experience-grid">
+        <div class="exp-card">
+          <div class="exp-icon">🎓</div>
+          <div class="exp-title">Expert Coaching</div>
+          <div class="exp-desc">Every class is led by a certified CrossFit coach who knows your name, your goals, and your limitations - and is watching your form on every rep.</div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🔄</div>
+          <div class="exp-title">Infinite Scalability</div>
+          <div class="exp-desc">Every single movement and workout is scaled to you. Your version of the WOD is as legitimate as anyone else's. There's no "modified" - just your level.</div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">📊</div>
+          <div class="exp-title">Trackable Progress</div>
+          <div class="exp-desc">WOD scores, PRs, and benchmark tests let you see actual improvement over time. The numbers don't lie - and watching them climb is addictive.</div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🤝</div>
+          <div class="exp-title">Community Accountability</div>
+          <div class="exp-desc">Your class holds you accountable. People notice when you miss. When you show up, they cheer. That's not pressure - that's the secret ingredient.</div>
+        </div>
+        <div class="exp-card">
+          <div class="exp-icon">🔥</div>
+          <div class="exp-title">Constantly Varied</div>
+          <div class="exp-desc">No two days are exactly the same. You'll never plateau because your body never fully adapts. Every day is a new challenge, a new skill, a new win.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="pricing-section">
+    <div class="pricing-inner">
+      <div class="pricing-intro">
+        <div class="section-tag">Membership</div>
+        <h2 class="section-title">STRAIGHTFORWARD <span>PRICING</span></h2>
+        <p>No hidden fees. No contracts. No upsells. Just great coaching and a community worth every dollar. Your first class is always on us.</p>
+      </div>
+      <div class="pricing-cards">
+
+        <!-- Standard -->
+        <div class="pricing-card featured">
+          <div class="pricing-badge">Most Popular</div>
+          <div class="pricing-body">
+            <div class="pricing-name">Standard Membership</div>
+            <div class="pricing-tagline">Unlimited classes, full access, all the community you can handle.</div>
+            <div class="pricing-amount">
+              <span class="pricing-dollar">$</span>
+              <span class="pricing-num">225</span>
+              <span class="pricing-per">/ month</span>
+            </div>
+            <ul class="pricing-includes">
+              <li>Unlimited CrossFit group classes</li>
+              <li>All skill levels and time slots</li>
+              <li>Access to open gym hours</li>
+              <li>WOD tracking and performance metrics</li>
+              <li>Full community access and events</li>
+              <li>Coach check-ins included</li>
+            </ul>
+            <a href="index.html#intro" class="pricing-cta pricing-cta-red">Start Free Intro</a>
+          </div>
+        </div>
+
+        <!-- San Rafael Barbell -->
+        <div class="pricing-card">
+          <div class="pricing-body" style="padding-top:52px;">
+            <div class="pricing-name">San Rafael Barbell</div>
+            <div class="pricing-tagline">Strength-focused programming for those chasing the barbell.</div>
+            <div class="pricing-amount">
+              <span class="pricing-dollar">$</span>
+              <span class="pricing-num">135</span>
+              <span class="pricing-per">/ month</span>
+            </div>
+            <ul class="pricing-includes">
+              <li>Olympic Weightlifting group classes</li>
+              <li>Coached by Meshelle Mifsud - national record holder</li>
+              <li>Snatch, Clean &amp; Jerk technique development</li>
+              <li>Competition prep available</li>
+              <li>Can be combined with Standard membership</li>
+            </ul>
+            <a href="index.html#intro" class="pricing-cta pricing-cta-outline">Learn More</a>
+          </div>
+        </div>
+
+        <!-- Drop-In -->
+        <div class="pricing-card">
+          <div class="pricing-body" style="padding-top:52px;">
+            <div class="pricing-name">Drop-In</div>
+            <div class="pricing-tagline">Visiting Marin? Your home gym is your home gym. Come train with us.</div>
+            <div class="pricing-amount">
+              <span class="pricing-dollar">$</span>
+              <span class="pricing-num">25</span>
+              <span class="pricing-per">/ class</span>
+            </div>
+            <ul class="pricing-includes">
+              <li>Any single group class</li>
+              <li>All athletes welcome - any affiliate</li>
+              <li>$25 donated to Marin Humane Society</li>
+              <li>No reservation required for most slots</li>
+              <li>CrossFit membership verification at door</li>
+            </ul>
+            <a href="index.html#intro" class="pricing-cta pricing-cta-outline">Reserve a Spot</a>
+          </div>
+        </div>
+
+      </div>
+      <p class="pricing-note">Questions about memberships? <a href="mailto:tamalpaisxfit@gmail.com">Email us</a> or call <a href="tel:+14159243737">(415) 924-3737</a></p>
+    </div>
+  </section>
+
+  <!-- SCHEDULE CTA -->
+  <section class="schedule-cta">
+    <h2>READY TO START?</h2>
+    <p>Your first class is free. No experience required. Just show up.</p>
+    <div class="schedule-cta-buttons">
+      <a href="index.html#intro" class="btn-white">Book Free Intro</a>
+      <a href="index.html#wod" class="btn-ghost-white">See Today's WOD</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">TCF</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Tamalpais CrossFit</span>
+            <span class="nav-logo-sub">Marin County · Est. 2010</span>
+          </div>
+        </div>
+        <p>Marin County's original CrossFit affiliate. A real community of real people doing real work since 2010.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="classes.html">CrossFit Classes</a></li>
+          <li><a href="index.html#programs">Olympic Weightlifting</a></li>
+          <li><a href="index.html#programs">Open Gym</a></li>
+          <li><a href="24hr.html">24 Hour Access</a></li>
+          <li><a href="index.html#programs">Personal Training</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Gym</h4>
+        <ul>
+          <li><a href="index.html#about">About TCF</a></li>
+          <li><a href="index.html#coaches">Our Coaches</a></li>
+          <li><a href="index.html#wod">WOD Archive</a></li>
+          <li><a href="index.html#intro">Free Intro</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>10 Larkspur Plaza Dr<br>Larkspur, CA 94939</p>
+        <p style="margin-top:10px;"><a href="tel:+14159243737" style="color:rgba(255,255,255,0.4);text-decoration:none;">(415) 924-3737</a></p>
+        <p style="margin-top:4px;"><a href="mailto:tamalpaisxfit@gmail.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">tamalpaisxfit@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Tamalpais CrossFit. All rights reserved.</p>
+      <a href="https://parfour.io">Site by Par4 Technologies</a>
+    </div>
+  </footer>
+
+</body>
+</html>

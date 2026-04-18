@@ -242,7 +242,7 @@
     }
     .program-card {
       position: relative; height: 320px; overflow: hidden;
-      cursor: pointer;
+      cursor: pointer; display: block; text-decoration: none;
     }
     .program-card img {
       width: 100%; height: 100%; object-fit: cover;
@@ -394,12 +394,12 @@
     }
     .coach-card:hover { transform: translateY(-4px); }
     .coach-img {
-      height: 260px; overflow: hidden; position: relative;
+      height: 240px; overflow: hidden; position: relative;
       background: var(--dark-3);
     }
     .coach-img img {
       width: 100%; height: 100%; object-fit: cover; object-position: center top;
-      filter: grayscale(20%);
+      filter: grayscale(25%);
       transition: filter 0.3s, transform 0.4s;
     }
     .coach-card:hover .coach-img img { filter: grayscale(0%); transform: scale(1.04); }
@@ -407,7 +407,7 @@
       position: absolute; inset: 0;
       background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%);
     }
-    .coach-info { padding: 20px 18px; }
+    .coach-info { padding: 20px 18px 22px; }
     .coach-name {
       font-family: 'Barlow Condensed', sans-serif;
       font-size: 1.2rem; font-weight: 900; text-transform: uppercase;
@@ -416,6 +416,10 @@
     .coach-title {
       font-size: 0.7rem; font-weight: 700; color: var(--red);
       letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .coach-bio {
+      font-size: 0.8rem; color: rgba(255,255,255,0.5); line-height: 1.6;
+      margin-bottom: 12px;
     }
     .coach-certs {
       display: flex; flex-wrap: wrap; gap: 4px;
@@ -658,10 +662,10 @@
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#programs">Programs</a></li>
-    <li><a href="#wod">WOD</a></li>
+    <li><a href="classes.html">Classes</a></li>
+    <li><a href="24hr.html">24hr Access</a></li>
     <li><a href="#coaches">Coaches</a></li>
-    <li><a href="#community">Community</a></li>
+    <li><a href="#wod">WOD</a></li>
     <li><a href="#intro" class="nav-cta">Free Intro</a></li>
   </ul>
   <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
@@ -671,10 +675,10 @@
 
 <div class="mobile-menu">
   <a href="#about">About</a>
-  <a href="#programs">Programs</a>
-  <a href="#wod">WOD</a>
+  <a href="classes.html">Classes</a>
+  <a href="24hr.html">24hr Access</a>
   <a href="#coaches">Coaches</a>
-  <a href="#community">Community</a>
+  <a href="#wod">WOD</a>
   <a href="#intro">Free Intro Session</a>
 </div>
 
@@ -708,7 +712,7 @@
       <div class="stat-label">Active Members</div>
     </div>
     <div class="stat-item">
-      <div class="stat-num">CF L1-L3</div>
+      <div class="stat-num">7</div>
       <div class="stat-label">Certified Coaches</div>
     </div>
     <div class="stat-item">
@@ -781,7 +785,7 @@
   </div>
 
   <div class="programs-grid">
-    <div class="program-card">
+    <a class="program-card" href="classes.html">
       <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
            alt="CrossFit Group Class" onerror="this.style.background='#222'" />
       <div class="program-card-overlay"></div>
@@ -791,7 +795,7 @@
         <div class="program-card-desc">Coach-led group classes with scalable workouts for all levels. The heart of what we do - every day, together.</div>
       </div>
       <div class="program-card-arrow">→</div>
-    </div>
+    </a>
 
     <div class="program-card">
       <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80"
@@ -933,70 +937,142 @@
   </div>
 
   <div class="coaches-grid">
+
+    <!-- Meshelle Mifsud -->
     <div class="coach-card">
       <div class="coach-img">
-        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80"
-             alt="Head Coach" onerror="this.style.background='#222'" />
+        <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&q=80"
+             alt="Meshelle Mifsud" onerror="this.style.background='#222'" />
         <div class="coach-img-overlay"></div>
       </div>
       <div class="coach-info">
-        <div class="coach-name">Head Coach</div>
-        <div class="coach-title">CrossFit L3 - Owner</div>
+        <div class="coach-name">Meshelle Mifsud</div>
+        <div class="coach-title">Owner · CF Coach · Olympic WL Coach</div>
+        <div class="coach-bio">Discovered CrossFit in 2006. National record holder in Olympic Weightlifting masters categories. Built TCF from the ground up in 2010.</div>
         <div class="coach-certs">
-          <span class="coach-cert">CF-L3</span>
+          <span class="coach-cert">CF-L1</span>
           <span class="coach-cert">Olympic WL</span>
-          <span class="coach-cert">Nutrition</span>
+          <span class="coach-cert">USAW</span>
         </div>
       </div>
     </div>
 
+    <!-- Anne Lundy -->
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?w=400&q=80"
+             alt="Anne Lundy" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Anne Lundy</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">First WOD February 8, 2007. CF Level 1 since 2013. Coached across multiple counties before making TCF home. A true CrossFit original.</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">Movement</span>
+          <span class="coach-cert">Mobility</span>
+          <span class="coach-cert">Weightlifting</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clarke Holland -->
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?w=400&q=80"
+             alt="Clarke Holland" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Clarke Holland</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">Lawyer by profession. CrossFitter by passion. Started at 58, qualified for the CrossFit Games 5 consecutive years (2012-2016). Proof age is a number.</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">CF-L2</span>
+          <span class="coach-cert">Games Athlete</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Collin Hilden -->
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&q=80"
+             alt="Collin Hilden" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Collin Hilden</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">Born and raised in San Francisco. Certified in Rolfing and Structural Integration (2013). Brings a deep understanding of body mechanics to every class.</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">Rolfing</span>
+          <span class="coach-cert">Mobility</span>
+          <span class="coach-cert">StrongFirst</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nick Cole-Butler -->
     <div class="coach-card">
       <div class="coach-img">
         <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&q=80"
-             alt="Coach" onerror="this.style.background='#222'" />
+             alt="Nick Cole-Butler" onerror="this.style.background='#222'" />
         <div class="coach-img-overlay"></div>
       </div>
       <div class="coach-info">
-        <div class="coach-name">Strength Coach</div>
-        <div class="coach-title">CrossFit L2 - Weightlifting</div>
+        <div class="coach-name">Nick Cole-Butler</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">Nurse by day. Started CrossFit at 14 in 2009. Ranked top 21,000 men worldwide in 2020 Open. Joined TCF coaching staff 2020 - medicine meets movement.</div>
         <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">RN</span>
+          <span class="coach-cert">Open Competitor</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Rye OConnor -->
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=400&q=80"
+             alt="Rye OConnor" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Rye O'Connor</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">Born and raised in Marin. Professional Formula Drift race car driver - the same discipline and focus he brings to every coaching session. CF L1, March 2022.</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">Formula Drift Pro</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sylvie Calderon -->
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&q=80"
+             alt="Sylvie Calderon" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Sylvie Calderon</div>
+        <div class="coach-title">CrossFit Coach</div>
+        <div class="coach-bio">Started CrossFit 2014, coaching since 2021. Originally from Peru, fluent in Spanish. Completed firefighter academy program. Coaches with warmth and precision.</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
           <span class="coach-cert">CF-L2</span>
-          <span class="coach-cert">USAW L1</span>
+          <span class="coach-cert">Bilingual</span>
+          <span class="coach-cert">Firefighter Cert</span>
         </div>
       </div>
     </div>
 
-    <div class="coach-card">
-      <div class="coach-img">
-        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
-             alt="Coach" onerror="this.style.background='#222'" />
-        <div class="coach-img-overlay"></div>
-      </div>
-      <div class="coach-info">
-        <div class="coach-name">CrossFit Coach</div>
-        <div class="coach-title">CrossFit L1 - Endurance</div>
-        <div class="coach-certs">
-          <span class="coach-cert">CF-L1</span>
-          <span class="coach-cert">CF Endurance</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="coach-card">
-      <div class="coach-img">
-        <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=400&q=80"
-             alt="Coach" onerror="this.style.background='#222'" />
-        <div class="coach-img-overlay"></div>
-      </div>
-      <div class="coach-info">
-        <div class="coach-name">Nutrition Coach</div>
-        <div class="coach-title">CrossFit L1 - Precision Nutrition</div>
-        <div class="coach-certs">
-          <span class="coach-cert">CF-L1</span>
-          <span class="coach-cert">PN Level 1</span>
-        </div>
-      </div>
-    </div>
   </div>
 </section>
 

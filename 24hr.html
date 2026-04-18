@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>24 Hour Access - Tamalpais CrossFit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-2: #1a1a1a;
+      --dark-3: #222222;
+      --red: #c0392b;
+      --red-light: #e74c3c;
+      --red-dark: #922b21;
+      --white: #ffffff;
+      --off-white: #f5f5f5;
+      --gray: #888888;
+      --gray-light: #cccccc;
+      --gray-dark: #444444;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 40px; height: 40px; background: var(--red);
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 900; color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 800; color: var(--white);
+      letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;
+    }
+    .nav-logo-sub {
+      font-size: 0.6rem; font-weight: 600; color: var(--red);
+      letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.6);
+      text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--white); }
+    .nav-cta {
+      background: var(--red); color: var(--white) !important;
+      padding: 10px 22px; border-radius: var(--radius);
+      font-weight: 700 !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-light) !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: var(--dark); z-index: 998;
+      padding: 16px 0 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block; padding: 14px 32px; font-size: 0.85rem; font-weight: 600;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu a:last-child { color: var(--red); border-bottom: none; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      position: relative; height: 52vh; min-height: 420px;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=80') center 55% / cover no-repeat;
+      display: flex; align-items: flex-end;
+    }
+    .page-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,1) 0%, rgba(10,10,10,0.65) 50%, rgba(10,10,10,0.35) 100%);
+    }
+    .page-hero-content {
+      position: relative; z-index: 2;
+      padding: 0 64px 64px; width: 100%;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 16px;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: var(--white); }
+    .breadcrumb span { color: rgba(255,255,255,0.2); }
+    .page-hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 4.5rem; font-weight: 900; line-height: 0.9;
+      text-transform: uppercase; color: var(--white);
+    }
+    .page-hero h1 span { color: var(--red); }
+    .page-hero-sub {
+      font-size: 1.05rem; color: rgba(255,255,255,0.65);
+      margin-top: 16px; max-width: 540px; line-height: 1.6;
+    }
+
+    /* ── SHARED ── */
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 14px;
+    }
+    .section-tag::before { content: ''; display: block; width: 24px; height: 2px; background: var(--red); }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem; font-weight: 900; text-transform: uppercase;
+      line-height: 1; color: var(--white);
+    }
+    .section-title span { color: var(--red); }
+    .divider { height: 1px; background: rgba(255,255,255,0.07); }
+
+    /* ── INTRO PITCH ── */
+    .pitch-section {
+      padding: 88px 48px; background: var(--dark);
+    }
+    .pitch-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .pitch-text h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem; font-weight: 900; text-transform: uppercase;
+      line-height: 1.05; color: var(--white); margin-bottom: 24px;
+    }
+    .pitch-text h2 span { color: var(--red); }
+    .pitch-text p {
+      font-size: 1rem; color: rgba(255,255,255,0.62); line-height: 1.8; margin-bottom: 20px;
+    }
+    .pitch-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .pitch-stat {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 28px 24px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .pitch-stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem; font-weight: 900; color: var(--red); line-height: 1;
+    }
+    .pitch-stat-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 6px;
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      padding: 88px 48px; background: var(--black);
+    }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-intro { max-width: 600px; margin-bottom: 64px; }
+    .how-intro p { font-size: 1rem; color: rgba(255,255,255,0.6); line-height: 1.8; margin-top: 18px; }
+    .how-steps {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    }
+    .how-step {
+      background: var(--dark-2); border-radius: 12px;
+      padding: 48px 40px; position: relative;
+      border: 1px solid rgba(255,255,255,0.06);
+      overflow: hidden;
+    }
+    .how-step-bg {
+      position: absolute; top: -20px; right: -10px;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 9rem; font-weight: 900;
+      color: rgba(192,57,43,0.06); line-height: 1;
+      pointer-events: none;
+    }
+    .how-step-icon {
+      width: 64px; height: 64px; background: var(--red);
+      border-radius: 14px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 28px; font-size: 1.8rem;
+    }
+    .how-step-num {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 12px;
+    }
+    .how-step-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 18px; line-height: 1;
+    }
+    .how-step-desc {
+      font-size: 0.95rem; color: rgba(255,255,255,0.58); line-height: 1.75;
+    }
+
+    /* ── RULES ── */
+    .rules-section {
+      padding: 88px 48px; background: var(--dark);
+    }
+    .rules-inner { max-width: 1100px; margin: 0 auto; }
+    .rules-intro { max-width: 640px; margin-bottom: 56px; }
+    .rules-intro p { font-size: 1rem; color: rgba(255,255,255,0.58); line-height: 1.8; margin-top: 18px; }
+    .rules-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .rule-card {
+      background: var(--dark-3); border-radius: var(--radius);
+      padding: 28px 24px;
+      border: 1px solid rgba(255,255,255,0.05);
+      transition: border-color 0.2s, transform 0.2s;
+      position: relative;
+    }
+    .rule-card:hover { transform: translateY(-2px); border-color: rgba(192,57,43,0.3); }
+    .rule-number {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.75rem; font-weight: 800; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 10px;
+    }
+    .rule-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); margin-bottom: 10px; line-height: 1.1;
+    }
+    .rule-desc { font-size: 0.84rem; color: rgba(255,255,255,0.5); line-height: 1.65; }
+    .rule-card.highlight {
+      border-color: rgba(192,57,43,0.4);
+      background: rgba(192,57,43,0.06);
+    }
+    .rule-card.highlight .rule-title { color: var(--red-light); }
+
+    /* ── PRICING ADD-ON ── */
+    .addon-section {
+      padding: 88px 48px; background: var(--black);
+    }
+    .addon-inner { max-width: 1100px; margin: 0 auto; }
+    .addon-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 52px; align-items: start;
+    }
+    .addon-card {
+      background: var(--dark-2); border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.07);
+      overflow: hidden;
+    }
+    .addon-card.primary { border-color: var(--red); box-shadow: 0 0 40px rgba(192,57,43,0.15); }
+    .addon-card-header {
+      background: var(--dark-3); padding: 28px 36px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .addon-card-header-label {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 8px;
+    }
+    .addon-card-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.7rem; font-weight: 900; text-transform: uppercase; color: var(--white);
+    }
+    .addon-card-body { padding: 36px; }
+    .addon-price {
+      display: flex; align-items: flex-start; gap: 4px; margin-bottom: 28px;
+    }
+    .addon-dollar { font-size: 1.2rem; font-weight: 700; color: var(--red); padding-top: 6px; }
+    .addon-amount {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.5rem; font-weight: 900; color: var(--white); line-height: 1;
+    }
+    .addon-per { font-size: 0.8rem; color: var(--gray); padding-top: 18px; align-self: flex-end; }
+    .addon-desc { font-size: 0.9rem; color: rgba(255,255,255,0.55); line-height: 1.7; margin-bottom: 28px; }
+    .addon-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .addon-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 0.86rem; color: rgba(255,255,255,0.65); line-height: 1.45;
+    }
+    .addon-features li::before {
+      content: ''; display: block; width: 6px; height: 6px;
+      background: var(--red); border-radius: 50%; flex-shrink: 0; margin-top: 6px;
+    }
+    .addon-cta {
+      display: block; text-align: center; text-decoration: none;
+      padding: 13px; border-radius: var(--radius);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: all 0.2s;
+    }
+    .addon-cta-red { background: var(--red); color: var(--white); }
+    .addon-cta-red:hover { background: var(--red-light); }
+    .addon-cta-outline {
+      background: transparent; color: var(--white);
+      border: 2px solid rgba(255,255,255,0.2);
+    }
+    .addon-cta-outline:hover { border-color: var(--white); background: rgba(255,255,255,0.05); }
+    .addon-note {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 24px 28px; border-left: 3px solid var(--red);
+      font-size: 0.88rem; color: rgba(255,255,255,0.55); line-height: 1.7;
+    }
+    .addon-note strong { color: var(--white); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      padding: 80px 48px; background: var(--red); text-align: center;
+    }
+    .cta-strip h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 16px;
+    }
+    .cta-strip p { font-size: 1rem; color: rgba(255,255,255,0.82); margin-bottom: 36px; max-width: 540px; margin-left: auto; margin-right: auto; }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-white {
+      display: inline-block; background: var(--white); color: var(--red);
+      padding: 14px 36px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; transition: all 0.2s;
+    }
+    .btn-white:hover { background: var(--off-white); transform: translateY(-2px); }
+    .btn-ghost-white {
+      display: inline-block; background: transparent; color: var(--white);
+      padding: 14px 36px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.5); transition: all 0.2s;
+    }
+    .btn-ghost-white:hover { border-color: var(--white); background: rgba(255,255,255,0.1); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark); padding: 56px 48px 32px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px;
+    }
+    .footer-brand p { font-size: 0.85rem; color: rgba(255,255,255,0.4); line-height: 1.7; margin-top: 16px; }
+    .footer-col h4 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 0.95rem; font-weight: 800; text-transform: uppercase;
+      color: var(--white); letter-spacing: 0.08em; margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul li a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-col ul li a:hover { color: var(--red); }
+    .footer-col p { font-size: 0.82rem; color: rgba(255,255,255,0.4); line-height: 1.7; }
+    .footer-bottom {
+      max-width: 1100px; margin: 40px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-bottom p { font-size: 0.75rem; color: rgba(255,255,255,0.25); }
+    .footer-bottom a { color: rgba(255,255,255,0.35); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 0 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .page-hero-content { padding: 0 24px 48px; }
+      .page-hero h1 { font-size: 3rem; }
+      .pitch-section, .how-section, .rules-section, .addon-section { padding: 64px 24px; }
+      .pitch-inner { grid-template-columns: 1fr; gap: 48px; }
+      .how-steps { grid-template-columns: 1fr; }
+      .rules-grid { grid-template-columns: 1fr 1fr; }
+      .addon-layout { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .cta-strip { padding: 56px 24px; }
+    }
+    @media (max-width: 600px) {
+      .rules-grid { grid-template-columns: 1fr; }
+      .pitch-stats { grid-template-columns: 1fr 1fr; }
+      .footer-inner { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-mark">TCF</div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-name">Tamalpais</span>
+        <span class="nav-logo-sub">CrossFit · Est. 2010</span>
+      </div>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="classes.html">Classes</a></li>
+      <li><a href="24hr.html" class="active">24 Hour Access</a></li>
+      <li><a href="index.html#coaches">Coaches</a></li>
+      <li><a href="index.html#wod">WOD</a></li>
+      <li><a href="index.html#intro" class="nav-cta">Free Intro</a></li>
+    </ul>
+    <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="mobile-menu">
+    <a href="index.html">Home</a>
+    <a href="classes.html">Classes</a>
+    <a href="24hr.html">24 Hour Access</a>
+    <a href="index.html#coaches">Coaches</a>
+    <a href="index.html#intro">Free Intro</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        24 Hour Access
+      </div>
+      <h1><span>24 Hour</span> Access</h1>
+      <p class="page-hero-sub">Train at 5am. Train at midnight. Your schedule, your gym. Available as an add-on to any Standard membership.</p>
+    </div>
+  </div>
+
+  <!-- PITCH -->
+  <section class="pitch-section">
+    <div class="pitch-inner">
+      <div class="pitch-text">
+        <div class="section-tag">The Pitch</div>
+        <h2>THE GYM IS <span>YOURS.</span><br>WHENEVER YOU<br>NEED IT.</h2>
+        <p>Life in Marin doesn't run on a class schedule. Early mornings, late nights, those weird middle-of-the-day windows when you suddenly have 45 minutes free - 24 hour access means you never miss a session.</p>
+        <p>This is for the members who want to put in extra work. The ones who come to class and then want to spend another 20 minutes on their snatch. The ones who travel for work and need to make up a WOD on a Sunday morning before anyone else is awake.</p>
+      </div>
+      <div class="pitch-stats">
+        <div class="pitch-stat">
+          <div class="pitch-stat-num">24/7</div>
+          <div class="pitch-stat-label">Gym Access</div>
+        </div>
+        <div class="pitch-stat">
+          <div class="pitch-stat-num">365</div>
+          <div class="pitch-stat-label">Days a Year</div>
+        </div>
+        <div class="pitch-stat">
+          <div class="pitch-stat-num">Key</div>
+          <div class="pitch-stat-label">Fob Entry</div>
+        </div>
+        <div class="pitch-stat">
+          <div class="pitch-stat-num">1</div>
+          <div class="pitch-stat-label">Person Max</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- HOW IT WORKS -->
+  <section class="how-section">
+    <div class="how-inner">
+      <div class="how-intro">
+        <div class="section-tag">The Process</div>
+        <h2 class="section-title">HOW IT <span>WORKS</span></h2>
+        <p>Getting 24 hour access is straightforward. There are two things you need to do - neither takes long.</p>
+      </div>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-step-bg">01</div>
+          <div class="how-step-icon">📋</div>
+          <div class="how-step-num">Step 01</div>
+          <div class="how-step-title">Sign the After-Hours Agreement</div>
+          <div class="how-step-desc">A quick liability waiver acknowledging the solo-use rules and your responsibility while training unsupervised. It takes about 2 minutes to complete. Once signed, it stays on file - you only do this once.</div>
+        </div>
+        <div class="how-step">
+          <div class="how-step-bg">02</div>
+          <div class="how-step-icon">🔑</div>
+          <div class="how-step-num">Step 02</div>
+          <div class="how-step-title">Get Your Key Fob</div>
+          <div class="how-step-desc">We program a key fob specifically to your membership. It grants you entry to the gym 24 hours a day, 7 days a week, 365 days a year. No app, no PIN - just tap and you're in. Pick it up at the front desk during any staffed hour.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- RULES -->
+  <section class="rules-section">
+    <div class="rules-inner">
+      <div class="rules-intro">
+        <div class="section-tag">The Rules</div>
+        <h2 class="section-title">24 HOUR <span>GUIDELINES</span></h2>
+        <p>These rules exist to protect the equipment, the space, and your safety while no staff is present. They're not complex - just common sense for training solo in a shared space.</p>
+      </div>
+      <div class="rules-grid">
+        <div class="rule-card highlight">
+          <div class="rule-number">Rule 01</div>
+          <div class="rule-title">One Person at a Time</div>
+          <div class="rule-desc">24 hour access is for solo training only. Do not bring guests, training partners, or anyone else into the gym during unstaffed hours. This is non-negotiable.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 02</div>
+          <div class="rule-title">No Coaching or Instruction</div>
+          <div class="rule-desc">You may not coach or instruct others during after-hours access. No "just showing a friend around." Coaching happens during class time with staff present.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 03</div>
+          <div class="rule-title">No Dropping Weights</div>
+          <div class="rule-desc">During after-hours training, no dropping barbells, dumbbells, or any equipment. This is a noise and safety requirement - neighbors and equipment both thank you.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 04</div>
+          <div class="rule-title">Use Rubber Bumpers Only</div>
+          <div class="rule-desc">Only rubber bumper plates may be used during unstaffed hours. Iron plates stay racked. If you need to go heavy, come to class where coaches can spot you.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 05</div>
+          <div class="rule-title">Rack Your Weights</div>
+          <div class="rule-desc">Leave the gym exactly as you found it. Everything back where it belongs - barbells, plates, kettlebells, boxes. The first staff member in shouldn't have to clean up your session.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 06</div>
+          <div class="rule-title">No High-Risk Movements</div>
+          <div class="rule-desc">Max effort lifts, box jumps to max height, and other high-risk movements are discouraged without supervision. Train smart - no PR attempts when you're solo.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 07</div>
+          <div class="rule-title">Music at Reasonable Volume</div>
+          <div class="rule-desc">You can play your own music, but keep it at a reasonable volume. The building has neighboring tenants and the community around us matters. Use headphones if you need it loud.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 08</div>
+          <div class="rule-title">Secure the Door Behind You</div>
+          <div class="rule-desc">When you enter and when you leave, verify the door is fully closed and locked. Do not hold the door for anyone - if they have access, they have a fob.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 09</div>
+          <div class="rule-title">No Food or Drinks</div>
+          <div class="rule-desc">Water is fine. Meals, protein shakes with strong smells, or anything that makes a mess stays outside. Keep the floor clean - it's a gym, not a kitchen.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 10</div>
+          <div class="rule-title">Report Any Issues</div>
+          <div class="rule-desc">Notice broken equipment, a light out, or anything that seems wrong? Text or email us immediately rather than waiting. Catching small problems early keeps the gym working for everyone.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">Rule 11</div>
+          <div class="rule-title">Access Can Be Revoked</div>
+          <div class="rule-desc">Violations of these guidelines result in immediate revocation of 24 hour access privileges. We keep this privilege available because members respect it. Help us keep it that way.</div>
+        </div>
+        <div class="rule-card">
+          <div class="rule-number">— </div>
+          <div class="rule-title">The Golden Rule</div>
+          <div class="rule-desc">Train as if the morning coach is about to walk in. Because eventually they will - and they'll be able to tell whether you respected the space.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING ADD-ON -->
+  <section class="addon-section">
+    <div class="addon-inner">
+      <div class="section-tag">Pricing</div>
+      <h2 class="section-title">ADD IT TO YOUR <span>MEMBERSHIP</span></h2>
+      <div class="addon-layout">
+        <div>
+          <div class="addon-card primary">
+            <div class="addon-card-header">
+              <div class="addon-card-header-label">Add-On</div>
+              <div class="addon-card-title">24 Hour Access</div>
+            </div>
+            <div class="addon-card-body">
+              <div class="addon-price">
+                <span class="addon-dollar">+$</span>
+                <span class="addon-amount">Ask</span>
+                <span class="addon-per">/ month add-on</span>
+              </div>
+              <div class="addon-desc">Requires active Standard Membership ($225/mo). Pricing for the 24 hour add-on is set when you join - ask us at your free intro or contact us directly.</div>
+              <ul class="addon-features">
+                <li>Unlimited after-hours access, any time of day or night</li>
+                <li>Key fob entry - no app required</li>
+                <li>Full equipment access (bumper plates, barbells, rigs)</li>
+                <li>Cancel anytime with 30-day notice</li>
+                <li>Access is tied to your membership - no sharing</li>
+              </ul>
+              <a href="index.html#intro" class="addon-cta addon-cta-red">Book Free Intro to Learn More</a>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px;">
+          <div class="addon-card">
+            <div class="addon-card-header">
+              <div class="addon-card-header-label">Membership Required</div>
+              <div class="addon-card-title">Standard Membership</div>
+            </div>
+            <div class="addon-card-body">
+              <div class="addon-price">
+                <span class="addon-dollar">$</span>
+                <span class="addon-amount">225</span>
+                <span class="addon-per">/ month</span>
+              </div>
+              <ul class="addon-features">
+                <li>Unlimited CrossFit group classes</li>
+                <li>All class times and skill levels</li>
+                <li>Access to open gym hours</li>
+                <li>WOD tracking and performance metrics</li>
+                <li>Community events and workshops</li>
+              </ul>
+              <a href="classes.html" class="addon-cta addon-cta-outline">See Full Class Info</a>
+            </div>
+          </div>
+          <div class="addon-note">
+            <strong>Who is 24 hour access for?</strong> It's for members who are already comfortable with the movements, know how to warm up on their own, and want the flexibility to train outside of scheduled class times. It's not recommended for members in their first 30 days - come to class first, get the fundamentals solid, then add on.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-strip">
+    <h2>START WITH A FREE CLASS</h2>
+    <p>24 hour access starts with a Standard Membership. Come in for a free intro, try a class, and we'll walk you through all the options.</p>
+    <div class="cta-buttons">
+      <a href="index.html#intro" class="btn-white">Book Free Intro</a>
+      <a href="classes.html" class="btn-ghost-white">View Classes</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="nav-logo">
+          <div class="nav-logo-mark">TCF</div>
+          <div class="nav-logo-text">
+            <span class="nav-logo-name">Tamalpais CrossFit</span>
+            <span class="nav-logo-sub">Marin County · Est. 2010</span>
+          </div>
+        </div>
+        <p>Marin County's original CrossFit affiliate. A real community of real people doing real work since 2010.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Programs</h4>
+        <ul>
+          <li><a href="classes.html">CrossFit Classes</a></li>
+          <li><a href="index.html#programs">Olympic Weightlifting</a></li>
+          <li><a href="index.html#programs">Open Gym</a></li>
+          <li><a href="24hr.html">24 Hour Access</a></li>
+          <li><a href="index.html#programs">Personal Training</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Gym</h4>
+        <ul>
+          <li><a href="index.html#about">About TCF</a></li>
+          <li><a href="index.html#coaches">Our Coaches</a></li>
+          <li><a href="index.html#wod">WOD Archive</a></li>
+          <li><a href="index.html#intro">Free Intro</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p>10 Larkspur Plaza Dr<br>Larkspur, CA 94939</p>
+        <p style="margin-top:10px;"><a href="tel:+14159243737" style="color:rgba(255,255,255,0.4);text-decoration:none;">(415) 924-3737</a></p>
+        <p style="margin-top:4px;"><a href="mailto:tamalpaisxfit@gmail.com" style="color:rgba(255,255,255,0.4);text-decoration:none;">tamalpaisxfit@gmail.com</a></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2024 Tamalpais CrossFit. All rights reserved.</p>
+      <a href="https://parfour.io">Site by Par4 Technologies</a>
+    </div>
+  </footer>
+
+</body>
+</html>
