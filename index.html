@@ -617,6 +617,54 @@
     .footer-par4 { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
     .footer-par4 a { color: var(--red); text-decoration: none; }
 
+    /* ── SCROLL REVEAL ── */
+    [data-reveal] {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    [data-reveal].revealed { opacity: 1; transform: none; }
+    [data-reveal-delay="1"] { transition-delay: 0.1s; }
+    [data-reveal-delay="2"] { transition-delay: 0.2s; }
+    [data-reveal-delay="3"] { transition-delay: 0.3s; }
+    [data-reveal-delay="4"] { transition-delay: 0.4s; }
+    [data-reveal-delay="5"] { transition-delay: 0.5s; }
+    [data-reveal-delay="6"] { transition-delay: 0.6s; }
+
+    /* ── 3D CARD FLIP ── */
+    .flip-card { perspective: 1400px; }
+    .flip-card-inner {
+      position: relative; transform-style: preserve-3d;
+      transition: transform 0.75s cubic-bezier(0.4,0.2,0.2,1);
+    }
+    .flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+    .flip-card-front { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .flip-card-back {
+      backface-visibility: hidden; -webkit-backface-visibility: hidden;
+      position: absolute; inset: 0; transform: rotateY(180deg);
+      background: var(--dark); border-radius: 12px;
+      border: 1px solid rgba(192,57,43,0.3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 40px;
+    }
+    .flip-success-icon { font-size: 3rem; margin-bottom: 16px; }
+    .flip-success-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 12px; line-height: 1;
+    }
+    .flip-success-title span { color: var(--red); }
+    .flip-success-msg {
+      font-size: 0.88rem; color: rgba(255,255,255,0.55);
+      line-height: 1.7; max-width: 280px;
+    }
+    .flip-success-sub {
+      margin-top: 20px; font-size: 0.72rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(192,57,43,0.7);
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 1024px) {
       .community-inner { grid-template-columns: 1fr; gap: 48px; }
@@ -723,7 +771,7 @@
 </div>
 
 <!-- ABOUT / COMMUNITY -->
-<section class="community-section" id="about">
+<section class="community-section" id="about" data-reveal>
   <div class="community-inner">
     <div class="community-text">
       <div class="section-tag">Who We Are</div>
@@ -775,7 +823,7 @@
 </section>
 
 <!-- PROGRAMS -->
-<section class="programs-section" id="programs">
+<section class="programs-section" id="programs" data-reveal>
   <div class="programs-header">
     <div>
       <div class="section-tag">What We Offer</div>
@@ -824,7 +872,7 @@
 </section>
 
 <!-- WOD -->
-<section class="wod-section" id="wod">
+<section class="wod-section" id="wod" data-reveal>
   <div class="wod-inner">
     <div>
       <div class="section-tag">Today's Training</div>
@@ -894,7 +942,7 @@
 </section>
 
 <!-- COACHES -->
-<section class="coaches-section" id="coaches">
+<section class="coaches-section" id="coaches" data-reveal>
   <div class="coaches-header">
     <div class="section-tag">The Team</div>
     <h2 class="section-title">Your <span>Coaches.</span></h2>
@@ -1041,7 +1089,7 @@
 </section>
 
 <!-- MEMBER STORIES -->
-<section class="stories-section" id="community">
+<section class="stories-section" id="community" data-reveal>
   <div class="stories-header">
     <div>
       <div class="section-tag">Real Members</div>
@@ -1111,7 +1159,7 @@
 </div>
 
 <!-- CTA / FREE INTRO -->
-<section class="cta-section" id="intro">
+<section class="cta-section" id="intro" data-reveal>
   <div class="cta-inner">
     <div class="cta-text">
       <div class="section-tag">Get Started</div>
@@ -1138,39 +1186,59 @@
       </div>
     </div>
 
-    <div class="cta-form">
-      <div class="cta-form-title">Book Your Free Intro</div>
-      <div class="cta-form-sub">Takes 30 seconds. We'll reach out within the hour.</div>
+    <div class="flip-card" id="intro-flip">
+      <div class="flip-card-inner">
 
-      <div class="form-row-2">
-        <div class="form-group">
-          <label>First Name</label>
-          <input type="text" placeholder="Alex" />
+        <!-- FRONT: form -->
+        <div class="flip-card-front">
+          <div class="cta-form">
+            <div class="cta-form-title">Book Your Free Intro</div>
+            <div class="cta-form-sub">Takes 30 seconds. We'll reach out within the hour.</div>
+
+            <form id="intro-form" action="https://formspree.io/f/mjgpngzz" method="POST">
+              <div class="form-row-2">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input type="text" name="first_name" placeholder="Alex" required />
+                </div>
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input type="text" name="last_name" placeholder="Johnson" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="alex@email.com" required />
+              </div>
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" name="phone" placeholder="(415) 000-0000" />
+              </div>
+              <div class="form-group">
+                <label>CrossFit Experience</label>
+                <select name="experience">
+                  <option value="">Select one...</option>
+                  <option>Complete beginner</option>
+                  <option>Some experience (under 1 year)</option>
+                  <option>Intermediate (1-3 years)</option>
+                  <option>Experienced (3+ years)</option>
+                </select>
+              </div>
+              <input type="hidden" name="_subject" value="New Free Intro Request - Tamalpais CrossFit Demo" />
+              <button type="submit" class="btn-submit" id="intro-submit">Book My Free Intro Session</button>
+            </form>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Last Name</label>
-          <input type="text" placeholder="Johnson" />
+
+        <!-- BACK: success -->
+        <div class="flip-card-back">
+          <div class="flip-success-icon">🏋️</div>
+          <div class="flip-success-title">YOU'RE <span>IN.</span></div>
+          <div class="flip-success-msg">Your intro request is on its way. Expect a message from the team within the hour. See you on the floor.</div>
+          <div class="flip-success-sub">Tamalpais CrossFit · Larkspur, CA</div>
         </div>
+
       </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" placeholder="alex@email.com" />
-      </div>
-      <div class="form-group">
-        <label>Phone</label>
-        <input type="tel" placeholder="(415) 000-0000" />
-      </div>
-      <div class="form-group">
-        <label>CrossFit Experience</label>
-        <select>
-          <option value="">Select one...</option>
-          <option>Complete beginner</option>
-          <option>Some experience (under 1 year)</option>
-          <option>Intermediate (1-3 years)</option>
-          <option>Experienced (3+ years)</option>
-        </select>
-      </div>
-      <button class="btn-submit">Book My Free Intro Session</button>
     </div>
   </div>
 </section>
@@ -1250,6 +1318,170 @@
       }
     });
   });
+</script>
+
+
+<script>
+// ─────────────────────────────────────────────
+// SCROLL REVEAL
+// ─────────────────────────────────────────────
+const revealEls = document.querySelectorAll('[data-reveal]');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('revealed');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.1 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Stagger child cards inside revealed sections
+const staggerObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const cards = e.target.querySelectorAll('.coach-card, .story-card, .who-card');
+      cards.forEach((c, i) => {
+        c.style.transitionDelay = (i * 0.08) + 's';
+        c.setAttribute('data-reveal', '');
+        setTimeout(() => c.classList.add('revealed'), 10);
+      });
+      staggerObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.05 });
+document.querySelectorAll('.coaches-grid, .stories-grid').forEach(el => staggerObserver.observe(el));
+
+// ─────────────────────────────────────────────
+// PARALLAX HERO
+// ─────────────────────────────────────────────
+const hero = document.querySelector('.hero');
+function updateParallax() {
+  if (hero && window.scrollY < window.innerHeight) {
+    hero.style.backgroundPositionY = `calc(30% + ${window.scrollY * 0.3}px)`;
+  }
+}
+window.addEventListener('scroll', updateParallax, { passive: true });
+
+// ─────────────────────────────────────────────
+// CONFETTI
+// ─────────────────────────────────────────────
+function launchConfetti(x, y) {
+  const canvas = document.createElement('canvas');
+  canvas.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;';
+  document.body.appendChild(canvas);
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  const colors = ['#c0392b','#e74c3c','#ffffff','#c9a84c','#f39c12','#ff6b6b'];
+  const cx = x || canvas.width / 2;
+  const cy = y || canvas.height * 0.4;
+  const pieces = Array.from({ length: 140 }, () => ({
+    x: cx, y: cy,
+    vx: (Math.random() - 0.5) * 18,
+    vy: (Math.random() - 0.85) * 16,
+    r: Math.random() * 6 + 3,
+    color: colors[Math.floor(Math.random() * colors.length)],
+    tilt: Math.random() * 10 - 5,
+    tiltSpeed: Math.random() * 0.1 + 0.04,
+    tiltAngle: 0,
+    gravity: 0.45,
+    life: 1
+  }));
+  let frame = 0;
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    pieces.forEach(p => {
+      p.vy += p.gravity;
+      p.x += p.vx;
+      p.y += p.vy;
+      p.tiltAngle += p.tiltSpeed;
+      p.tilt = Math.sin(p.tiltAngle) * 12;
+      p.life -= 0.012;
+      ctx.globalAlpha = Math.max(0, p.life);
+      ctx.beginPath();
+      ctx.lineWidth = p.r;
+      ctx.strokeStyle = p.color;
+      ctx.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    frame++;
+    if (frame < 160) requestAnimationFrame(draw);
+    else canvas.remove();
+  }
+  draw();
+}
+
+// ─────────────────────────────────────────────
+// FORMSPREE + CARD FLIP (Par4 internal)
+// ─────────────────────────────────────────────
+const introForm = document.getElementById('intro-form');
+const introFlip = document.getElementById('intro-flip');
+const introSubmit = document.getElementById('intro-submit');
+
+if (introForm) {
+  introForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    introSubmit.textContent = 'Sending...';
+    introSubmit.disabled = true;
+    try {
+      const res = await fetch('https://formspree.io/f/mjgpngzz', {
+        method: 'POST',
+        body: new FormData(introForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        introFlip.classList.add('flipped');
+        const rect = introFlip.getBoundingClientRect();
+        launchConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      } else {
+        introSubmit.textContent = 'Something went wrong - Try Again';
+        introSubmit.disabled = false;
+      }
+    } catch {
+      introSubmit.textContent = 'Something went wrong - Try Again';
+      introSubmit.disabled = false;
+    }
+  });
+}
+
+// ─────────────────────────────────────────────
+// KONAMI CODE EASTER EGG (Par4 internal)
+// ─────────────────────────────────────────────
+const KONAMI = [38,38,40,40,37,39,37,39,66,65];
+let konamiIdx = 0;
+document.addEventListener('keydown', (e) => {
+  konamiIdx = (e.keyCode === KONAMI[konamiIdx]) ? konamiIdx + 1 : 0;
+  if (konamiIdx === KONAMI.length) {
+    konamiIdx = 0;
+    launchConfetti();
+    const msg = document.createElement('div');
+    msg.innerHTML = '⬆⬆⬇⬇⬅➡⬅➡ 🏋️<br><span style="font-size:1.1rem;opacity:0.7;">PAR4 KNOWS THE CODE</span>';
+    msg.style.cssText = [
+      'position:fixed','top:50%','left:50%',
+      'transform:translate(-50%,-50%) scale(0.8)',
+      'background:var(--red)','color:#fff',
+      'font-family:"Barlow Condensed",sans-serif',
+      'font-size:2rem','font-weight:900',
+      'letter-spacing:0.06em','text-transform:uppercase',
+      'padding:28px 48px','border-radius:14px',
+      'z-index:10000','text-align:center',
+      'box-shadow:0 24px 80px rgba(0,0,0,0.7)',
+      'transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s'
+    ].join(';');
+    document.body.appendChild(msg);
+    requestAnimationFrame(() => {
+      msg.style.transform = 'translate(-50%,-50%) scale(1)';
+    });
+    setTimeout(() => {
+      msg.style.opacity = '0';
+      msg.style.transform = 'translate(-50%,-50%) scale(0.9)';
+      setTimeout(() => msg.remove(), 400);
+    }, 2800);
+  }
+});
 </script>
 
 </body>
