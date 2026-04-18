@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tamalpais CrossFit - Marin County's CrossFit Community</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --dark: #111111;
+      --dark-2: #1a1a1a;
+      --dark-3: #222222;
+      --red: #c0392b;
+      --red-light: #e74c3c;
+      --red-dark: #922b21;
+      --white: #ffffff;
+      --off-white: #f5f5f5;
+      --gray: #888888;
+      --gray-light: #cccccc;
+      --gray-dark: #444444;
+      --radius: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Barlow', sans-serif; background: var(--black); color: var(--white); }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+      background: rgba(10,10,10,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px; text-decoration: none;
+    }
+    .nav-logo-mark {
+      width: 40px; height: 40px;
+      background: var(--red);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.1rem; font-weight: 900; color: var(--white);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo-text { display: flex; flex-direction: column; }
+    .nav-logo-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 800; color: var(--white);
+      letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.1;
+    }
+    .nav-logo-sub {
+      font-size: 0.6rem; font-weight: 600; color: var(--red);
+      letter-spacing: 0.18em; text-transform: uppercase;
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 32px; list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem; font-weight: 600; color: rgba(255,255,255,0.6);
+      text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--red); color: var(--white) !important;
+      padding: 10px 22px; border-radius: var(--radius);
+      font-weight: 700 !important; transition: background 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--red-light) !important; }
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 6px;
+    }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; }
+    .mobile-menu {
+      display: none; position: fixed; top: 72px; left: 0; right: 0;
+      background: var(--dark); z-index: 998;
+      padding: 16px 0 24px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block; padding: 14px 32px; font-size: 0.85rem; font-weight: 600;
+      color: rgba(255,255,255,0.7); text-decoration: none;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-bottom: 1px solid rgba(255,255,255,0.06); transition: color 0.2s;
+    }
+    .mobile-menu a:hover { color: var(--white); }
+    .mobile-menu a:last-child { color: var(--red); border-bottom: none; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 680px;
+      background: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1800&q=80') center 30% / cover no-repeat;
+      display: flex; align-items: center; overflow: hidden;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to right, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.65) 55%, rgba(10,10,10,0.3) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 64px; max-width: 720px; margin-top: 72px;
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--red);
+      margin-bottom: 20px;
+    }
+    .hero-tag::before {
+      content: ''; display: block; width: 28px; height: 2px; background: var(--red);
+    }
+    .hero h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 5.5rem; font-weight: 900; line-height: 0.92;
+      text-transform: uppercase; letter-spacing: -0.01em;
+      color: var(--white); margin-bottom: 24px;
+    }
+    .hero h1 span { color: var(--red); }
+    .hero p {
+      font-size: 1.05rem; color: rgba(255,255,255,0.72);
+      line-height: 1.75; margin-bottom: 36px; max-width: 480px;
+    }
+    .hero-buttons { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-red {
+      display: inline-block; background: var(--red); color: var(--white);
+      padding: 14px 32px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s;
+    }
+    .btn-red:hover { background: var(--red-light); }
+    .btn-ghost {
+      display: inline-block; background: transparent; color: var(--white);
+      padding: 14px 32px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--white); background: rgba(255,255,255,0.07); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--red);
+      padding: 0 48px;
+      display: flex; justify-content: center;
+    }
+    .stats-inner {
+      max-width: 1100px; width: 100%;
+      display: flex; justify-content: space-between;
+    }
+    .stat-item {
+      padding: 24px 32px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.2);
+      flex: 1;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.4rem; font-weight: 900; color: var(--white); line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75); margin-top: 4px;
+    }
+
+    /* ── COMMUNITY / ABOUT ── */
+    .community-section {
+      padding: 96px 48px; background: var(--dark);
+    }
+    .community-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .section-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 16px;
+    }
+    .section-tag::before { content: ''; display: block; width: 20px; height: 2px; background: var(--red); }
+    .section-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3rem; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.01em; line-height: 0.95; color: var(--white);
+      margin-bottom: 24px;
+    }
+    .section-title span { color: var(--red); }
+    .community-text p {
+      font-size: 0.95rem; color: rgba(255,255,255,0.65);
+      line-height: 1.85; margin-bottom: 18px;
+    }
+    .community-text .highlight {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--white);
+      line-height: 1.3; margin-bottom: 24px; font-style: italic;
+    }
+    .community-pillars {
+      margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    }
+    .community-pillar {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 18px 16px; border-left: 3px solid var(--red);
+    }
+    .community-pillar strong {
+      display: block; font-size: 0.82rem; font-weight: 700;
+      color: var(--white); margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .community-pillar span { font-size: 0.78rem; color: var(--gray); line-height: 1.5; }
+
+    .community-image-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .community-img {
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .community-img img {
+      width: 100%; height: 220px; object-fit: cover;
+      transition: transform 0.4s;
+    }
+    .community-img:hover img { transform: scale(1.04); }
+    .community-img.tall img { height: 452px; }
+
+    /* ── PROGRAMS ── */
+    .programs-section {
+      padding: 96px 48px; background: var(--black);
+    }
+    .programs-header {
+      max-width: 1100px; margin: 0 auto 56px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .programs-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+    }
+    .program-card {
+      position: relative; height: 320px; overflow: hidden;
+      cursor: pointer;
+    }
+    .program-card img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.5s;
+      filter: brightness(0.55);
+    }
+    .program-card:hover img { transform: scale(1.06); filter: brightness(0.4); }
+    .program-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%);
+    }
+    .program-card-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 24px;
+    }
+    .program-card-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 6px;
+    }
+    .program-card-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.6rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); line-height: 1; margin-bottom: 8px;
+    }
+    .program-card-desc {
+      font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.6;
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .program-card:hover .program-card-desc { max-height: 80px; }
+    .program-card-arrow {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--red); display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; opacity: 0; transition: opacity 0.3s;
+    }
+    .program-card:hover .program-card-arrow { opacity: 1; }
+
+    /* ── WOD ── */
+    .wod-section {
+      padding: 96px 48px; background: var(--dark);
+    }
+    .wod-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start;
+    }
+    .wod-card {
+      background: var(--dark-2); border-radius: 12px;
+      overflow: hidden; border: 1px solid rgba(255,255,255,0.07);
+    }
+    .wod-header {
+      background: var(--red); padding: 20px 28px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .wod-header-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem; font-weight: 900; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--white);
+    }
+    .wod-header-date {
+      font-size: 0.72rem; font-weight: 700; color: rgba(255,255,255,0.75);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .wod-body { padding: 28px; }
+    .wod-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); letter-spacing: 0.04em; margin-bottom: 20px;
+    }
+    .wod-movements { list-style: none; margin-bottom: 24px; }
+    .wod-movements li {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 0.88rem; color: rgba(255,255,255,0.75);
+      padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      line-height: 1.4;
+    }
+    .wod-movements li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--red); flex-shrink: 0;
+    }
+    .wod-rx {
+      display: inline-block;
+      background: rgba(192,57,43,0.15); border: 1px solid rgba(192,57,43,0.3);
+      color: var(--red); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 4px; margin-right: 8px;
+    }
+    .wod-scaled {
+      display: inline-block;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.6); font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 4px;
+    }
+    .wod-footer {
+      padding: 16px 28px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .wod-timecap {
+      font-size: 0.72rem; font-weight: 700; color: var(--gray);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .btn-wod {
+      font-size: 0.72rem; font-weight: 700; color: var(--red);
+      text-decoration: none; letter-spacing: 0.08em; text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .btn-wod:hover { color: var(--red-light); }
+
+    .wod-side { }
+    .wod-side p {
+      font-size: 0.92rem; color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 20px;
+    }
+    .wod-archive {
+      margin-top: 32px; display: flex; flex-direction: column; gap: 2px;
+    }
+    .wod-archive-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--dark-2); padding: 14px 18px; border-radius: 6px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .wod-archive-item:hover { background: var(--dark-3); }
+    .wod-archive-date {
+      font-size: 0.72rem; font-weight: 700; color: var(--gray);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .wod-archive-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1rem; font-weight: 700; color: var(--white);
+      text-transform: uppercase; letter-spacing: 0.04em;
+    }
+    .wod-archive-arrow { color: var(--red); font-size: 0.8rem; }
+
+    /* ── COACHES ── */
+    .coaches-section {
+      padding: 96px 48px; background: var(--black);
+    }
+    .coaches-header {
+      max-width: 1100px; margin: 0 auto 56px;
+    }
+    .coaches-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
+    }
+    .coach-card {
+      background: var(--dark-2); border-radius: var(--radius); overflow: hidden;
+      transition: transform 0.25s;
+    }
+    .coach-card:hover { transform: translateY(-4px); }
+    .coach-img {
+      height: 260px; overflow: hidden; position: relative;
+      background: var(--dark-3);
+    }
+    .coach-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+      filter: grayscale(20%);
+      transition: filter 0.3s, transform 0.4s;
+    }
+    .coach-card:hover .coach-img img { filter: grayscale(0%); transform: scale(1.04); }
+    .coach-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.7) 0%, transparent 50%);
+    }
+    .coach-info { padding: 20px 18px; }
+    .coach-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); letter-spacing: 0.04em; margin-bottom: 2px;
+    }
+    .coach-title {
+      font-size: 0.7rem; font-weight: 700; color: var(--red);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+    }
+    .coach-certs {
+      display: flex; flex-wrap: wrap; gap: 4px;
+    }
+    .coach-cert {
+      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--gray);
+      background: var(--dark-3); padding: 3px 8px; border-radius: 3px;
+    }
+
+    /* ── MEMBER STORIES ── */
+    .stories-section {
+      padding: 96px 48px; background: var(--dark);
+    }
+    .stories-header {
+      max-width: 1100px; margin: 0 auto 56px;
+      display: flex; justify-content: space-between; align-items: flex-end;
+    }
+    .stories-grid {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+    }
+    .story-card {
+      background: var(--dark-2); border-radius: var(--radius);
+      padding: 28px; border: 1px solid rgba(255,255,255,0.05);
+      transition: border-color 0.2s;
+    }
+    .story-card:hover { border-color: rgba(192,57,43,0.3); }
+    .story-stars { color: var(--red); font-size: 0.85rem; margin-bottom: 16px; letter-spacing: 2px; }
+    .story-quote {
+      font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.8;
+      margin-bottom: 20px; font-style: italic;
+    }
+    .story-author { display: flex; align-items: center; gap: 12px; }
+    .story-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--dark-3); overflow: hidden; flex-shrink: 0;
+      border: 2px solid rgba(192,57,43,0.4);
+    }
+    .story-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .story-name {
+      font-size: 0.82rem; font-weight: 700; color: var(--white);
+    }
+    .story-detail {
+      font-size: 0.7rem; color: var(--gray); margin-top: 1px;
+    }
+
+    /* ── DROP IN ── */
+    .dropin-section {
+      background: var(--red); padding: 64px 48px;
+    }
+    .dropin-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 40px;
+      flex-wrap: wrap;
+    }
+    .dropin-text h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 2.8rem; font-weight: 900; text-transform: uppercase;
+      line-height: 0.95; color: var(--white); margin-bottom: 12px;
+    }
+    .dropin-text p {
+      font-size: 0.92rem; color: rgba(255,255,255,0.82); line-height: 1.7; max-width: 480px;
+    }
+    .dropin-price {
+      text-align: center; flex-shrink: 0;
+    }
+    .dropin-price-num {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 5rem; font-weight: 900; color: var(--white); line-height: 1;
+    }
+    .dropin-price-label {
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+    }
+    .dropin-price-note {
+      font-size: 0.75rem; color: rgba(255,255,255,0.65); margin-top: 6px; line-height: 1.5;
+    }
+    .btn-white {
+      display: inline-block; background: var(--white); color: var(--red);
+      padding: 14px 32px; border-radius: var(--radius);
+      font-size: 0.82rem; font-weight: 800; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none;
+      transition: background 0.2s, color 0.2s; margin-top: 24px;
+    }
+    .btn-white:hover { background: var(--off-white); }
+
+    /* ── INTRO CTA ── */
+    .cta-section {
+      padding: 96px 48px; background: var(--dark-2);
+    }
+    .cta-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .cta-text h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 3.2rem; font-weight: 900; text-transform: uppercase;
+      line-height: 0.95; color: var(--white); margin-bottom: 20px;
+    }
+    .cta-text h2 span { color: var(--red); }
+    .cta-text p {
+      font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.85; margin-bottom: 18px;
+    }
+    .cta-reassurance {
+      display: flex; flex-direction: column; gap: 12px; margin: 28px 0 36px;
+    }
+    .cta-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.85rem; color: rgba(255,255,255,0.7);
+    }
+    .cta-item-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0;
+    }
+
+    .cta-form {
+      background: var(--dark); border-radius: 12px;
+      padding: 36px; border: 1px solid rgba(255,255,255,0.07);
+    }
+    .cta-form-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.5rem; font-weight: 900; text-transform: uppercase;
+      color: var(--white); margin-bottom: 6px; letter-spacing: 0.04em;
+    }
+    .cta-form-sub {
+      font-size: 0.8rem; color: var(--gray); margin-bottom: 24px;
+    }
+    .form-group { margin-bottom: 14px; }
+    .form-group label {
+      display: block; font-size: 0.68rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%; padding: 12px 14px;
+      background: var(--dark-2); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius); color: var(--white);
+      font-family: 'Barlow', sans-serif; font-size: 0.88rem;
+      outline: none; transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--red); }
+    .form-group select option { background: var(--dark-2); }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .btn-submit {
+      width: 100%; background: var(--red); color: var(--white);
+      border: none; padding: 14px;
+      border-radius: var(--radius);
+      font-family: 'Barlow', sans-serif; font-size: 0.85rem; font-weight: 800;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      cursor: pointer; transition: background 0.2s; margin-top: 4px;
+    }
+    .btn-submit:hover { background: var(--red-light); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #050505; padding: 56px 48px 28px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: grid; grid-template-columns: 1.8fr 1fr 1fr 1fr;
+      gap: 48px; margin-bottom: 40px;
+    }
+    .footer-brand p {
+      font-size: 0.82rem; color: rgba(255,255,255,0.35); line-height: 1.7; margin-top: 14px;
+    }
+    .footer-heading {
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--red); margin-bottom: 18px;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 10px; }
+    .footer-links a {
+      font-size: 0.82rem; color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+    .footer-schedule { display: flex; flex-direction: column; gap: 8px; }
+    .schedule-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.78rem; padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .schedule-day { color: rgba(255,255,255,0.4); }
+    .schedule-time { color: var(--white); font-weight: 600; }
+    .footer-bottom {
+      max-width: 1100px; margin: 0 auto;
+      border-top: 1px solid rgba(255,255,255,0.05); padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-copy { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
+    .footer-par4 { font-size: 0.72rem; color: rgba(255,255,255,0.2); }
+    .footer-par4 a { color: var(--red); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .community-inner { grid-template-columns: 1fr; gap: 48px; }
+      .coaches-grid { grid-template-columns: repeat(2, 1fr); }
+      .programs-grid { grid-template-columns: repeat(2, 1fr); }
+      .wod-inner { grid-template-columns: 1fr; gap: 40px; }
+      .cta-inner { grid-template-columns: 1fr; gap: 48px; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .hero-content { padding: 0 24px; margin-top: 72px; }
+      .hero h1 { font-size: 3.8rem; }
+      .stats-bar { padding: 0 24px; }
+      .stats-inner { flex-wrap: wrap; }
+      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); flex: 1 1 50%; }
+      .community-section, .programs-section, .wod-section,
+      .coaches-section, .stories-section, .cta-section { padding: 64px 24px; }
+      .programs-grid { grid-template-columns: 1fr; }
+      .coaches-grid { grid-template-columns: 1fr 1fr; }
+      .stories-grid { grid-template-columns: 1fr; }
+      .dropin-section { padding: 48px 24px; }
+      .dropin-inner { flex-direction: column; text-align: center; }
+      footer { padding: 40px 24px 24px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .programs-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .stories-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">
+    <div class="nav-logo-mark">TCF</div>
+    <div class="nav-logo-text">
+      <span class="nav-logo-name">Tamalpais CrossFit</span>
+      <span class="nav-logo-sub">Marin County</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#wod">WOD</a></li>
+    <li><a href="#coaches">Coaches</a></li>
+    <li><a href="#community">Community</a></li>
+    <li><a href="#intro" class="nav-cta">Free Intro</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu">
+  <a href="#about">About</a>
+  <a href="#programs">Programs</a>
+  <a href="#wod">WOD</a>
+  <a href="#coaches">Coaches</a>
+  <a href="#community">Community</a>
+  <a href="#intro">Free Intro Session</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Marin County - Est. 2010</div>
+    <h1>Where <span>Marin</span><br>Gets Strong.</h1>
+    <p>Tamalpais CrossFit is more than a gym - it's the community that shows up for each other at 5am, cheers the last person across the finish line, and makes you better than you thought you could be.</p>
+    <div class="hero-buttons">
+      <a href="#intro" class="btn-red">Book Free Intro</a>
+      <a href="#programs" class="btn-ghost">See Programs</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">2010</div>
+      <div class="stat-label">Founded in Marin</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">24hr</div>
+      <div class="stat-label">Gym Access</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">Active Members</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">CF L1-L3</div>
+      <div class="stat-label">Certified Coaches</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">All</div>
+      <div class="stat-label">Levels Welcome</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT / COMMUNITY -->
+<section class="community-section" id="about">
+  <div class="community-inner">
+    <div class="community-text">
+      <div class="section-tag">Who We Are</div>
+      <h2 class="section-title">Built on <span>Community.</span><br>Proven by Results.</h2>
+      <p class="highlight">"It's a place where the coaching is amazing, I get a great workout, and I can hang out with a wonderful community that supports everyone."</p>
+      <p>Tamalpais CrossFit has been the home gym of Marin County's most dedicated athletes since 2010. We're not the biggest box - we're the one where coaches know your name, remember your PRs, and won't let you phone it in.</p>
+      <p>Whether you're stepping into a CrossFit gym for the very first time or you've been competing for years, you'll find your place here. We scale every workout to meet you where you are.</p>
+
+      <div class="community-pillars">
+        <div class="community-pillar">
+          <strong>Expert Coaching</strong>
+          <span>CF Level 1-3 certified coaches on every class floor</span>
+        </div>
+        <div class="community-pillar">
+          <strong>24hr Access</strong>
+          <span>Train on your schedule, not ours</span>
+        </div>
+        <div class="community-pillar">
+          <strong>All Levels</strong>
+          <span>Every WOD scaled to where you are today</span>
+        </div>
+        <div class="community-pillar">
+          <strong>Real Community</strong>
+          <span>The people here will become your people</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="community-image-grid">
+      <div class="community-img tall">
+        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?w=600&q=80"
+             alt="CrossFit community"
+             onerror="this.style.background='#222'" />
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <div class="community-img">
+          <img src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=600&q=80"
+               alt="CrossFit coaching"
+               onerror="this.style.background='#222'" />
+        </div>
+        <div class="community-img">
+          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=600&q=80"
+               alt="CrossFit training"
+               onerror="this.style.background='#222'" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section class="programs-section" id="programs">
+  <div class="programs-header">
+    <div>
+      <div class="section-tag">What We Offer</div>
+      <h2 class="section-title">Find Your <span>Program.</span></h2>
+    </div>
+    <a href="#intro" class="btn-red">Start for Free</a>
+  </div>
+
+  <div class="programs-grid">
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80"
+           alt="CrossFit Group Class" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">Foundation</div>
+        <div class="program-card-name">CrossFit Group Class</div>
+        <div class="program-card-desc">Coach-led group classes with scalable workouts for all levels. The heart of what we do - every day, together.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=800&q=80"
+           alt="Olympic Weightlifting" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">Specialty</div>
+        <div class="program-card-name">Olympic Weightlifting</div>
+        <div class="program-card-desc">Dedicated coaching for the snatch and clean & jerk. Build power, technique, and confidence under the bar.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=800&q=80"
+           alt="Strength Training" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">Strength</div>
+        <div class="program-card-name">Strength Training</div>
+        <div class="program-card-desc">Bench, squat, deadlift - plus accessory work to build a bulletproof foundation. Strength solves most problems.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80"
+           alt="Personal Training" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">1-on-1</div>
+        <div class="program-card-name">Personal Training</div>
+        <div class="program-card-desc">Private coaching tailored completely to your goals, timeline, and current fitness level. All signal, no noise.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?w=800&q=80"
+           alt="Small Group Training" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">Small Group</div>
+        <div class="program-card-name">Small Group Training</div>
+        <div class="program-card-desc">The focus of personal training with the energy of a group. Perfect for accountability partners and teams.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+
+    <div class="program-card">
+      <img src="https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80"
+           alt="Nutrition Coaching" onerror="this.style.background='#222'" />
+      <div class="program-card-overlay"></div>
+      <div class="program-card-content">
+        <div class="program-card-tag">Performance</div>
+        <div class="program-card-name">Nutrition Coaching</div>
+        <div class="program-card-desc">Training is only part of the equation. Our nutrition coaching helps you eat to perform, recover, and feel your best.</div>
+      </div>
+      <div class="program-card-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- WOD -->
+<section class="wod-section" id="wod">
+  <div class="wod-inner">
+    <div>
+      <div class="section-tag">Today's Training</div>
+      <h2 class="section-title" style="margin-bottom:28px;">Workout of<br>the <span>Day.</span></h2>
+
+      <div class="wod-card">
+        <div class="wod-header">
+          <div class="wod-header-title">WOD - Friday</div>
+          <div class="wod-header-date">April 18, 2026</div>
+        </div>
+        <div class="wod-body">
+          <div class="wod-name">For Time:</div>
+          <ul class="wod-movements">
+            <li>21-15-9 Thrusters (95/65 lb)</li>
+            <li>21-15-9 Pull-ups</li>
+            <li>400m Run between each round</li>
+            <li>Rx: 95/65 lb - Scaled: 75/45 lb + Ring Rows</li>
+          </ul>
+          <div>
+            <span class="wod-rx">RX</span>
+            <span class="wod-scaled">Scaled</span>
+          </div>
+        </div>
+        <div class="wod-footer">
+          <div class="wod-timecap">Time Cap: 20 min</div>
+          <a href="#" class="btn-wod">View All WODs →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="wod-side">
+      <div class="section-tag">Recent WODs</div>
+      <p>Every day is different. Every day is worth showing up for. Check the board, scale as needed, leave better than you arrived.</p>
+
+      <div class="wod-archive">
+        <a href="#" class="wod-archive-item">
+          <div>
+            <div class="wod-archive-date">Thu April 17</div>
+            <div class="wod-archive-name">AMRAP 20 - DB Complex</div>
+          </div>
+          <div class="wod-archive-arrow">→</div>
+        </a>
+        <a href="#" class="wod-archive-item">
+          <div>
+            <div class="wod-archive-date">Wed April 16</div>
+            <div class="wod-archive-name">5 Rounds - Deadlift + Box Jumps</div>
+          </div>
+          <div class="wod-archive-arrow">→</div>
+        </a>
+        <a href="#" class="wod-archive-item">
+          <div>
+            <div class="wod-archive-date">Tue April 15</div>
+            <div class="wod-archive-name">Strength - Back Squat 5x5</div>
+          </div>
+          <div class="wod-archive-arrow">→</div>
+        </a>
+        <a href="#" class="wod-archive-item">
+          <div>
+            <div class="wod-archive-date">Mon April 14</div>
+            <div class="wod-archive-name">Open Workout 25.3</div>
+          </div>
+          <div class="wod-archive-arrow">→</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COACHES -->
+<section class="coaches-section" id="coaches">
+  <div class="coaches-header">
+    <div class="section-tag">The Team</div>
+    <h2 class="section-title">Your <span>Coaches.</span></h2>
+  </div>
+
+  <div class="coaches-grid">
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?w=400&q=80"
+             alt="Head Coach" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Head Coach</div>
+        <div class="coach-title">CrossFit L3 - Owner</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L3</span>
+          <span class="coach-cert">Olympic WL</span>
+          <span class="coach-cert">Nutrition</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=400&q=80"
+             alt="Coach" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Strength Coach</div>
+        <div class="coach-title">CrossFit L2 - Weightlifting</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L2</span>
+          <span class="coach-cert">USAW L1</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
+             alt="Coach" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">CrossFit Coach</div>
+        <div class="coach-title">CrossFit L1 - Endurance</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">CF Endurance</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="coach-card">
+      <div class="coach-img">
+        <img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=400&q=80"
+             alt="Coach" onerror="this.style.background='#222'" />
+        <div class="coach-img-overlay"></div>
+      </div>
+      <div class="coach-info">
+        <div class="coach-name">Nutrition Coach</div>
+        <div class="coach-title">CrossFit L1 - Precision Nutrition</div>
+        <div class="coach-certs">
+          <span class="coach-cert">CF-L1</span>
+          <span class="coach-cert">PN Level 1</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MEMBER STORIES -->
+<section class="stories-section" id="community">
+  <div class="stories-header">
+    <div>
+      <div class="section-tag">Real Members</div>
+      <h2 class="section-title">Don't Take<br>Our <span>Word For It.</span></h2>
+    </div>
+  </div>
+
+  <div class="stories-grid">
+    <div class="story-card">
+      <div class="story-stars">★★★★★</div>
+      <div class="story-quote">"I've been working out at Tam CrossFit for about three years now and I absolutely love it. Staff is very professional and knowledgeable and the size of the box is perfect. Workouts and instructions are well designed - most days I end up on the floor panting but wanting more."</div>
+      <div class="story-author">
+        <div class="story-avatar">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&q=80" alt="Kunal" onerror="this.style.background='#333'" />
+        </div>
+        <div>
+          <div class="story-name">Kunal</div>
+          <div class="story-detail">Member - 3 years</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-stars">★★★★★</div>
+      <div class="story-quote">"I love going to TCF every week. It's enabled me to keep up with my kids as they grow older and participate in all kinds of fun adventures. It's a place where the coaching is amazing, I get a great workout, and I can hang out with a wonderful community that supports everyone."</div>
+      <div class="story-author">
+        <div class="story-avatar">
+          <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80" alt="Todd" onerror="this.style.background='#333'" />
+        </div>
+        <div>
+          <div class="story-name">Todd</div>
+          <div class="story-detail">Member - 2 years</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="story-card">
+      <div class="story-stars">★★★★★</div>
+      <div class="story-quote">"I started at Tamalpais CrossFit a year and a half ago and can honestly say my life has changed. For the longest time I was hesitant to join - I'd heard there was such a high risk of injury. But the coaches here are so focused on form and safety. Best decision I ever made."</div>
+      <div class="story-author">
+        <div class="story-avatar">
+          <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Member" onerror="this.style.background='#333'" />
+        </div>
+        <div>
+          <div class="story-name">Sarah M.</div>
+          <div class="story-detail">Member - 18 months</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DROP IN -->
+<div class="dropin-section">
+  <div class="dropin-inner">
+    <div class="dropin-text">
+      <h2>Visiting Marin?<br>Drop In.</h2>
+      <p>All CrossFit athletes are welcome to drop in for any class. Just show up, introduce yourself, and get to work. Marin's waiting for you.</p>
+      <a href="#intro" class="btn-white">Book Your Drop-In</a>
+    </div>
+    <div class="dropin-price">
+      <div class="dropin-price-num">$25</div>
+      <div class="dropin-price-label">Drop-In Fee</div>
+      <div class="dropin-price-note">Donated to a local animal shelter.<br>Train hard. Do good.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA / FREE INTRO -->
+<section class="cta-section" id="intro">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <div class="section-tag">Get Started</div>
+      <h2>Your First<br>Class is <span>Free.</span></h2>
+      <p>We know walking into a new gym can feel intimidating. That's exactly why we start with a free intro session - no pressure, no commitment, just you and a coach figuring out where to begin.</p>
+
+      <div class="cta-reassurance">
+        <div class="cta-item">
+          <div class="cta-item-dot"></div>
+          One-on-one intro with a coach - not a salesperson
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-dot"></div>
+          We'll assess where you are and what you need
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-dot"></div>
+          No experience required - beginners are our specialty
+        </div>
+        <div class="cta-item">
+          <div class="cta-item-dot"></div>
+          Walk away with a plan regardless of whether you join
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-form">
+      <div class="cta-form-title">Book Your Free Intro</div>
+      <div class="cta-form-sub">Takes 30 seconds. We'll reach out within the hour.</div>
+
+      <div class="form-row-2">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Alex" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Johnson" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email</label>
+        <input type="email" placeholder="alex@email.com" />
+      </div>
+      <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" placeholder="(415) 000-0000" />
+      </div>
+      <div class="form-group">
+        <label>CrossFit Experience</label>
+        <select>
+          <option value="">Select one...</option>
+          <option>Complete beginner</option>
+          <option>Some experience (under 1 year)</option>
+          <option>Intermediate (1-3 years)</option>
+          <option>Experienced (3+ years)</option>
+        </select>
+      </div>
+      <button class="btn-submit">Book My Free Intro Session</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="nav-logo" style="pointer-events:none;">
+        <div class="nav-logo-mark">TCF</div>
+        <div class="nav-logo-text">
+          <span class="nav-logo-name">Tamalpais CrossFit</span>
+          <span class="nav-logo-sub">Marin County</span>
+        </div>
+      </div>
+      <p>Marin County's CrossFit community since 2010. Where you show up, put in the work, and leave better than you arrived - every single day.</p>
+    </div>
+    <div>
+      <div class="footer-heading">Programs</div>
+      <ul class="footer-links">
+        <li><a href="#programs">CrossFit Classes</a></li>
+        <li><a href="#programs">Olympic Weightlifting</a></li>
+        <li><a href="#programs">Strength Training</a></li>
+        <li><a href="#programs">Personal Training</a></li>
+        <li><a href="#programs">Nutrition Coaching</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-heading">Class Schedule</div>
+      <div class="footer-schedule">
+        <div class="schedule-row">
+          <span class="schedule-day">Mon - Fri</span>
+          <span class="schedule-time">5:30am - 7pm</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-day">Saturday</span>
+          <span class="schedule-time">8am - 12pm</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-day">Sunday</span>
+          <span class="schedule-time">9am - 11am</span>
+        </div>
+        <div class="schedule-row">
+          <span class="schedule-day">24hr Access</span>
+          <span class="schedule-time">Always Open</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="footer-heading">Visit Us</div>
+      <ul class="footer-links">
+        <li><a href="#">Mill Valley, CA 94941</a></li>
+        <li><a href="tel:+14154156789">(415) 415-6789</a></li>
+        <li><a href="#">info@tamcrossfit.com</a></li>
+        <li><a href="#intro">Book Free Intro</a></li>
+        <li><a href="#">Drop-In Info</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Tamalpais CrossFit. All rights reserved.</div>
+    <div class="footer-par4">Site concept by <a href="https://parfour.io" target="_blank">Par4 Technologies</a></div>
+  </div>
+</footer>
+
+<script>
+  document.querySelector('.hamburger').addEventListener('click', function() {
+    document.querySelector('.mobile-menu').classList.toggle('open');
+  });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', function(e) {
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        document.querySelector('.mobile-menu').classList.remove('open');
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
